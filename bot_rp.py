@@ -1,13 +1,11 @@
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 import asyncio
+import os
 
-# ─────────────────────────────────────────────
-# CONFIGURAÇÃO
-# ─────────────────────────────────────────────
-TOKEN = "SEU_TOKEN_AQUI"
-
-# ─────────────────────────────────────────────
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
 
 intents = discord.Intents.default()
 intents.guilds = True
