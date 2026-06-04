@@ -1,0 +1,40 @@
+LISTA DE COMANDOS DO BOT DISCORD HOGWARTS
+=========================================
+
+Comandos de administração (slash commands):
+- /criar-ficha <usuario>
+  Cria a ficha de um personagem para o usuário informado.
+
+- /ver-ficha <usuario>
+  Exibe a ficha completa do personagem: HP, poder, resistência e feitiços.
+
+- /set-hp <usuario> <valor>
+  Define o HP máximo da ficha.
+
+- /set-poder <usuario> <valor>
+  Define o poder mágico da ficha.
+
+- /set-resist <usuario> <valor>
+  Define a resistência percentual da ficha.
+
+- /unlock-spell <usuario> <feitico>
+  Desbloqueia um feitiço para o personagem.
+
+- /lock-spell <usuario> <feitico>
+  Bloqueia um feitiço do personagem.
+
+- /set-cooldown <usuario> <feitico> <valor>
+  Define o cooldown de um feitiço para o personagem.
+
+Comandos de feitiços e duelo:
+- /lista-feiticos
+  Mostra os feitiços disponíveis no sistema.
+
+- /meu-feitiço
+  Exibe os feitiços liberados da sua ficha atual.
+
+- /duelar <adversario>
+  Inicia um duelo simples contra outro membro.
+
+Observação:
+- Alguns comandos exigem que o usuário tenha a role "Developer" para serem usados.
