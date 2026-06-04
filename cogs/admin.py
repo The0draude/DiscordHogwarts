@@ -205,5 +205,27 @@ class Admin(commands.Cog):
         save(data)
         await interaction.response.send_message(f"⏱️ Cooldown de `{feitico}` para **{data[uid]['nome']}** definido para `{valor}` turnos.")
 
+    # ── Set max hits (acertos máximos) ────────────────────────────────────────
+    @app_commands.command(name="set-max-hits", description="Define quantos acertos máximos o usuário aguenta antes de ser derrotado")
+    async def set_max_hits(self, interaction: discord.Interaction, usuario: discord.Member, valor: int):
+        if not is_adm(interaction):
+            await interaction.response.send_message("Apenas ADMs podem usar este comando.", ephemeral=True)
+            return
+
+        if valor < 1:
+            await interaction.response.send_message("O valor deve ser pelo menos 1.", ephemeral=True)
+            return
+
+        data = load()
+        uid = str(usuario.id)
+
+        if uid not in data:
+            await interaction.response.send_message("Ficha não encontrada.", ephemeral=True)
+            return
+
+        data[uid]["max_hits"] = valor
+        save(data)
+        await interaction.response.send_message(f"💥 Máximo de acertos para **{data[uid]['nome']}** definido para `{valor}`.")
+
 async def setup(bot):
     await bot.add_cog(Admin(bot))

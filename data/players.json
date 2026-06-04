@@ -38,5 +38,45 @@
         "cooldown": 2
       }
     }
+  },
+  "920007582675001374": {
+    "nome": "Carlos",
+    "hp_max": 80,
+    "poder": 100,
+    "resistencia": 0,
+    "feiticos": {
+      "expelliarmus": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
+      "stupefy": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
+      "protego": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
+      "flipendo": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
+      "reducto": {
+        "desbloqueado": false,
+        "cooldown": 2
+      },
+      "sectumsempra": {
+        "desbloqueado": false,
+        "cooldown": 2
+      },
+      "crucio": {
+        "desbloqueado": false,
+        "cooldown": 2
+      },
+      "avada_kedavra": {
+        "desbloqueado": false,
+        "cooldown": 2
+      }
+    }
   }
 }

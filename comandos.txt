@@ -1,12 +1,15 @@
 LISTA DE COMANDOS DO BOT DISCORD HOGWARTS
 =========================================
 
-Comandos de administração (slash commands):
+COMANDOS DE ADMINISTRAÇÃO (apenas ADMs):
+========================================
+
 - /criar-ficha <usuario>
   Cria a ficha de um personagem para o usuário informado.
+  HP máximo: 80 | Poder: 100 | Resistência: 0%
 
 - /ver-ficha <usuario>
-  Exibe a ficha completa do personagem: HP, poder, resistência e feitiços.
+  Exibe a ficha completa do personagem: HP, poder, resistência, feitiços e max_hits.
 
 - /set-hp <usuario> <valor>
   Define o HP máximo da ficha.
@@ -17,24 +20,74 @@ Comandos de administração (slash commands):
 - /set-resist <usuario> <valor>
   Define a resistência percentual da ficha.
 
+- /set-max-hits <usuario> <valor>
+  Define quantos acertos máximos o usuário aguenta antes de ser derrotado no duelo.
+  Padrão: 3
+
 - /unlock-spell <usuario> <feitico>
-  Desbloqueia um feitiço para o personagem.
+  Desbloqueia um feitiço para o personagem usar em duelos.
 
 - /lock-spell <usuario> <feitico>
   Bloqueia um feitiço do personagem.
 
 - /set-cooldown <usuario> <feitico> <valor>
   Define o cooldown de um feitiço para o personagem.
+  Padrão: 2 turnos
 
-Comandos de feitiços e duelo:
+COMANDOS DE FEITIÇOS:
+====================
+
 - /lista-feiticos
   Mostra os feitiços disponíveis no sistema.
 
 - /meu-feitiço
-  Exibe os feitiços liberados da sua ficha atual.
+  Exibe os feitiços desbloqueados e bloqueados da sua ficha.
+
+COMANDOS DE DUELO (NOVO SISTEMA):
+=================================
 
 - /duelar <adversario>
-  Inicia um duelo simples contra outro membro.
+  Inicia um duelo estratégico 1v1 contra outro membro.
+  Primeiro a acertar N vezes vence (N = max_hits de cada jogador).
 
-Observação:
-- Alguns comandos exigem que o usuário tenha a role "Developer" para serem usados.
+- /agir
+  Escolhe um feitiço para usar no turno atual do duelo.
+  Mostra apenas feitiços desbloqueados e sem cooldown.
+  Abre um menu dropdown para seleção.
+
+- /duelo-status
+  Mostra o status do duelo atual (acertos, turno, extra turn, etc).
+
+- /sair-duelo
+  Desiste do duelo atual (você se rende = oponente vence).
+
+SISTEMA DE DUELO - REGRAS:
+==========================
+
+Triângulo de Vitória:
+  ⚔️  Ataque > Controle     → Ataque passa e causa acerto
+  🌪️ Controle > Defesa     → Debuff passa e causa acerto
+  🛡️ Defesa > Ataque       → Bloqueio perfeito + turno extra
+  ☠️ Avada Kedavra         → Ignora Defesa
+
+Empates:
+  ⚔️ Ataque vs Ataque       → Troca de dano (ambos levam acertos)
+  🛡️ Defesa vs Defesa      → Nada acontece (turno perdido)
+  🌪️ Controle vs Controle  → Debuffs neutralizam (narrativo)
+
+Cooldowns:
+  - Todos os feitiços têm cooldown de 2 turnos
+  - Cooldown reduz -1 a cada turno
+  - Admin pode configurar com /set-cooldown
+
+Feitiços por Tipo:
+  ATAQUE: stupefy, flipendo, reducto, sectumsempra, avada_kedavra
+  DEFESA: protego, expelliarmus
+  CONTROLE: crucio
+
+OBSERVAÇÕES:
+============
+- Alguns comandos exigem que o usuário tenha a role "Developer" (ADMs).
+- Para duelos, ambos os jogadores precisam ter ficha criada.
+- Um jogador não pode estar em 2 duelos simultâneos.
+- Duelos expiram após 1 hora de inatividade.
