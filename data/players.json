@@ -1,6 +1,6 @@
 {
   "111111": {
-    "nome": "Alice",
+    "nome": "\u26a1 Raio",
     "hp_max": 80,
     "poder": 100,
     "resistencia": 0,
@@ -41,7 +41,7 @@
     }
   },
   "222222": {
-    "nome": "Bob",
+    "nome": "\ud83d\udd25 Chama",
     "hp_max": 80,
     "poder": 100,
     "resistencia": 0,
