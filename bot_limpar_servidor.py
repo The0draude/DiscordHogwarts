@@ -53,6 +53,10 @@ async def on_ready():
         print(f"❌ Erros: {erros}")
         print("Limpeza concluída!")
 
+        # Cria um canal geral após a limpeza
+        canal = await guild.create_text_channel("geral")
+        print(f"✅ Canal criado: #{canal.name}")
+
     await bot.close()
 
 
