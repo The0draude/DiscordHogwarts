@@ -178,6 +178,10 @@ class CombatSystem:
 
         result = self._resolve_turn(duel, p1_action, p2_action, p1_spell, p2_spell)
 
+        # Aplicar cooldowns aos feitiços usados
+        self.add_cooldown(duel_id, duel.p1.user_id, p1_spell, turns=2)
+        self.add_cooldown(duel_id, duel.p2.user_id, p2_spell, turns=2)
+
         duel.turn_count += 1
         duel.history.append(result)
         self.pending_actions[duel_id] = {"p1": None, "p2": None}

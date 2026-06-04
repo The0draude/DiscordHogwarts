@@ -7,6 +7,7 @@ COMANDOS DE ADMINISTRAÇÃO (apenas ADMs):
 - /criar-ficha <usuario>
   Cria a ficha de um personagem para o usuário informado.
   HP máximo: 80 | Poder: 100 | Resistência: 0%
+  Feitiços desbloqueados por padrão: stupefy, protego, expelliarmus, flipendo, crucio
 
 - /ver-ficha <usuario>
   Exibe a ficha completa do personagem: HP, poder, resistência, feitiços e max_hits.

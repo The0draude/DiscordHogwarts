@@ -12,9 +12,9 @@ SPELLS_DEFAULT = {
     "stupefy":      {"desbloqueado": True,  "cooldown": 2},
     "protego":      {"desbloqueado": True,  "cooldown": 2},
     "flipendo":     {"desbloqueado": True,  "cooldown": 2},
+    "crucio":       {"desbloqueado": True,  "cooldown": 2},
     "reducto":      {"desbloqueado": False, "cooldown": 2},
     "sectumsempra": {"desbloqueado": False, "cooldown": 2},
-    "crucio":       {"desbloqueado": False, "cooldown": 2},
     "avada_kedavra":{"desbloqueado": False, "cooldown": 2},
 }
 
@@ -54,10 +54,11 @@ class Admin(commands.Cog):
             "hp_max": 80,
             "poder": 100,
             "resistencia": 0,
+            "max_hits": 3,
             "feiticos": SPELLS_DEFAULT.copy()
         }
         save(data)
-        await interaction.response.send_message(f"✅ Ficha de **{usuario.display_name}** criada com sucesso!")
+        await interaction.response.send_message(f"✅ Ficha de **{usuario.display_name}** criada com sucesso! (Max Hits: 3)")
 
     # ── Ver ficha ─────────────────────────────────────────────────────────────
     @app_commands.command(name="ver-ficha", description="Exibe a ficha de um personagem")
@@ -79,6 +80,7 @@ class Admin(commands.Cog):
             f"❤️ HP máximo: `{p['hp_max']}`",
             f"⚡ Poder mágico: `{p['poder']}`",
             f"🛡️ Resistência: `{p['resistencia']}%`",
+            f"💥 Max Hits (Duelo): `{p.get('max_hits', 3)}`",
             "",
             "**Feitiços:**"
         ]

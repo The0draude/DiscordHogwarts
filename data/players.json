@@ -1,9 +1,10 @@
 {
-  "1139592110878752888": {
-    "nome": "𝓞𝓭𝓻𝓪𝓾𝓭𝓮",
+  "111111": {
+    "nome": "Alice",
     "hp_max": 80,
     "poder": 100,
     "resistencia": 0,
+    "max_hits": 3,
     "feiticos": {
       "expelliarmus": {
         "desbloqueado": true,
@@ -21,15 +22,15 @@
         "desbloqueado": true,
         "cooldown": 2
       },
+      "crucio": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
       "reducto": {
         "desbloqueado": false,
         "cooldown": 2
       },
       "sectumsempra": {
-        "desbloqueado": false,
-        "cooldown": 2
-      },
-      "crucio": {
         "desbloqueado": false,
         "cooldown": 2
       },
@@ -39,11 +40,12 @@
       }
     }
   },
-  "920007582675001374": {
-    "nome": "Carlos",
+  "222222": {
+    "nome": "Bob",
     "hp_max": 80,
     "poder": 100,
     "resistencia": 0,
+    "max_hits": 3,
     "feiticos": {
       "expelliarmus": {
         "desbloqueado": true,
@@ -61,15 +63,15 @@
         "desbloqueado": true,
         "cooldown": 2
       },
+      "crucio": {
+        "desbloqueado": true,
+        "cooldown": 2
+      },
       "reducto": {
         "desbloqueado": false,
         "cooldown": 2
       },
       "sectumsempra": {
-        "desbloqueado": false,
-        "cooldown": 2
-      },
-      "crucio": {
         "desbloqueado": false,
         "cooldown": 2
       },

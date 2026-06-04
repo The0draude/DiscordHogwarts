@@ -48,6 +48,7 @@ class Spells(commands.Cog):
             f"❤️ HP: {ficha.get('hp_max', 0)}",
             f"⚡ Poder: {ficha.get('poder', 0)}",
             f"🛡️ Resistência: {ficha.get('resistencia', 0)}%",
+            f"💥 Max Hits (Duelo): {ficha.get('max_hits', 3)}",
             "",
             "✅ Feitiços desbloqueados: " + (", ".join(desbloqueados) if desbloqueados else "nenhum"),
             "🔒 Feitiços bloqueados: " + (", ".join(bloqueados) if bloqueados else "nenhum"),

@@ -64,36 +64,53 @@ class SpellSelectView(View):
 
         # Verificar se é a ação do jogador correto
         if str(interaction.user.id) != self.user_id:
-            await interaction.response.defer(ephemeral=True)
+            await interaction.response.send_message(
+                "❌ Este menu não é para você!",
+                ephemeral=True
+            )
             return
 
         # Atualizar ação no sistema
         both_ready = combat_system.set_action(self.duel_id, self.user_id, spell)
-
         duel = combat_system.get_duel(self.duel_id)
+        
+        if not duel:
+            await interaction.response.send_message(
+                "❌ Duelo não encontrado!",
+                ephemeral=True
+            )
+            return
+
         emoji, spell_type = SPELL_DESCRIPTIONS.get(spell, ("❓", "Desconhecido"))
 
         if both_ready:
             # Ambos prontos, executar o turno
             await interaction.response.defer()
+            
             max_hits_p1 = get_max_hits_for_user(duel.p1.user_id)
             max_hits_p2 = get_max_hits_for_user(duel.p2.user_id)
             max_hits = max(max_hits_p1, max_hits_p2)
+            
+            # Guardar turn_count antes de executar
+            current_turn = duel.turn_count
 
             result, winner, duel_ended = combat_system.execute_round(self.duel_id, max_hits)
 
             # Reduzir cooldowns após o turno
             combat_system.reduce_cooldowns(self.duel_id)
+            
+            # Recuperar duel atualizado
+            duel = combat_system.get_duel(self.duel_id)
 
             # Mensagem do resultado
             embed = discord.Embed(
-                title=f"⚔️ Turno {duel.turn_count}",
+                title=f"⚔️ Turno {current_turn + 1}",
                 description=result,
                 color=discord.Color.orange()
             )
 
             # Status atual
-            status = f"**{duel.p1.user_id}**: {duel.p1.hits}/{max_hits_p1} | **{duel.p2.user_id}**: {duel.p2.hits}/{max_hits_p2}"
+            status = f"<@{duel.p1.user_id}>: {duel.p1.hits}/{max_hits_p1} | <@{duel.p2.user_id}>: {duel.p2.hits}/{max_hits_p2}"
             embed.add_field(name="Status", value=status, inline=False)
 
             await interaction.followup.send(embed=embed)
@@ -114,8 +131,9 @@ class SpellSelectView(View):
                 combat_system.end_duel(self.duel_id)
             else:
                 # Próximo turno
+                next_player = duel.p2.user_id if self.user_id == duel.p1.user_id else duel.p1.user_id
                 await interaction.followup.send(
-                    f"✨ Próximo turno! <@{duel.p1.user_id if self.user_id == duel.p2.user_id else duel.p2.user_id}> use `/agir`"
+                    f"✨ Próximo turno! <@{next_player}> use `/agir`"
                 )
         else:
             # Aguardando o outro jogador
