@@ -9,7 +9,7 @@ Bot para Discord (feito com `discord.py`) que automatiza a criação e gestão d
 - `python-dotenv`
 
 ```bash
-pip install discord.py python-dotenv
+pip install "discord.py>=2.1" python-dotenv
 ```
 
 ## 🔑 Configuração
@@ -47,6 +47,20 @@ Todos os comandos abaixo exigem permissão de **Administrador**.
 | `!DeletarCategorias <categoria1, categoria2, ...>` | Deleta as categorias informadas, seus canais e os cargos `Owner`/`Member` correspondentes. |
 | `!Setar <categoria> @membro1 @membro2 ...` | Atribui o cargo `<categoria>Member` aos membros mencionados. |
 | `!Divulgar` | Publica uma mensagem listando todas as categorias que possuem cargo `Member`, com emojis únicos. Reagir na mensagem atribui automaticamente o cargo correspondente (e remover a reação retira o cargo). |
+| `!Painel` | Publica um painel interativo com botões (📋 Listar RPs, 🚪 Sair do RP, 🔄 Transferir Owner, 🗑️ Deletar meu RP) para os próprios membros gerenciarem seus RPs sem precisar de comandos de texto. |
+
+## 🎛️ Painel interativo (`!Painel`)
+
+Publica um embed com 4 botões, todos usando componentes nativos do Discord (`discord.ui`):
+
+- **📋 Listar RPs** — mostra (de forma efêmera, só visível pra quem clicou) todos os RPs do servidor, quantos membros cada um tem e se o usuário é dono/membro.
+- **🚪 Sair do RP** — abre um menu de seleção com os RPs em que o usuário está, e remove os cargos `Owner`/`Member` correspondentes ao escolher.
+- **🔄 Transferir Owner** — para donos: escolhe qual RP transferir e depois seleciona o novo dono (via seletor nativo de usuários do Discord); move o cargo `Owner` e garante que o novo dono também tenha `Member`.
+- **🗑️ Deletar meu RP** — para donos: escolhe o RP e pede confirmação explícita (botões "Confirmar"/"Cancelar") antes de apagar categoria, canais e cargos.
+
+Os botões do painel usam `custom_id` fixo e são reregistrados em `bot.add_view(PainelView())` no `on_ready`, então continuam funcionando mesmo depois de reiniciar o bot (diferente do `react_role_map` do `!Divulgar`, que ainda é só em memória).
+
+> ⚠️ Requer `discord.py` com suporte a `discord.ui.UserSelect` (Select Menu de usuários), disponível a partir da versão 2.1+.
 
 ## 🧩 Como funciona a estrutura de RP
 
@@ -71,7 +85,9 @@ O bot mantém em memória (`bot.react_role_map`) um mapeamento `mensagem → {em
 
 ## 📝 Observações e possíveis melhorias futuras
 
-- Não há persistência do `react_role_map` (perdido a cada restart).
-- Não há tratamento de erro caso `!Setar`/`!DeletarCategorias` recebam nomes inexistentes de forma silenciosa para o usuário (os logs vão para o console, não para o Discord, na maioria dos comandos).
-- Não há confirmação antes de `!DeletarCategorias` (ação destrutiva e irreversível).
+- Não há persistência do `react_role_map` (perdido a cada restart) — diferente do `!Painel`, que já é persistente.
+- A maioria dos comandos de texto (`!Criar`, `!DeletarCategorias`, `!Setar` etc.) ainda só loga no console, sem responder no Discord — o `!Painel` já resolve isso para as ações que ele cobre.
+- `!DeletarCategorias` (comando de texto) ainda não pede confirmação — só a exclusão via `!Painel` tem esse passo.
 - Uso de `discord.utils.get` por nome pode gerar ambiguidade se houver categorias/cargos duplicados.
+- Migrar os comandos restantes para slash commands (`app_commands`) deixaria tudo mais descobrível no Discord.
+- Log de auditoria (quem criou/deletou o quê) em um canal específico do servidor.
